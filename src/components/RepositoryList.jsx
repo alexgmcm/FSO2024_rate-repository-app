@@ -64,7 +64,6 @@ const RepositoryList = () => {
       renderItem = {({item}) => (
         <RepositoryItem item={item}/>
       )}
-      // other props
     />
   );
 };
