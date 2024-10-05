@@ -6,7 +6,9 @@ const styles = StyleSheet.create({
     flexColumn: {
       flexDirection: 'row',
       gap:0,
-      margin:5 ,
+      margin:5,
+      flexWrap: 'nowrap',
+      flexShrink: 9
      
     },
     flexRow: {
@@ -15,13 +17,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         flexDirection: 'column',
         alignItems: "flex-start",
-        flexWrap: 'wrap',
-        flexShrink: 3
+        flexWrap: 'nowrap',
+        flexShrink: 1
       },
     ownerAvatar: {
       marginLeft: 5,
         flexGrow: 0,
-        flexShrink: 1,
+        flexShrink: 0,
         width: 50,
         height: 50 
     }
