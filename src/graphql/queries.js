@@ -14,3 +14,12 @@ query Node {
     }
   }
 `;
+
+export const GET_ME = gql`
+query Me {
+  me {
+    id
+    username
+  }
+}
+`

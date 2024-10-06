@@ -1,16 +1,16 @@
 import { Pressable, View } from "react-native";
 import Text from "../Text";
-import { Link } from "react-router-native";
+import { useNavigate } from "react-router-native";
 
 
-const AppBarTab = ({text, link}) => {
+const AppBarTab = ({text, link, onPressFunc}) => {
+  const navigate = useNavigate();
+  const onPress = onPressFunc ? async () => {await onPressFunc(); navigate(link)} : () => {navigate(link)}
+
     return (
       <View>
-    <Pressable  onPress={() => (null)}>
-      <Link to={link}>
+    <Pressable  onPress={onPress}>
         <Text fontWeight="bold" color="textLight">{text}</Text>
-       </Link>
-   
       </Pressable>
       </View>
       )
