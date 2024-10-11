@@ -63,7 +63,7 @@ describe('RepositoryList', () => {
         const checkFields = (element , fields, testObj) => {
             fields.forEach(field => {
                 expect(element).toHaveTextContent(testObj[field]);
-                console.log(`Checked had ${field}, value: "${testObj[field]}"`)
+                //console.log(`Checked had ${field}, value: "${testObj[field]}"`)
             });
         }
 
