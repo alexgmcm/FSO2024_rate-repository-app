@@ -22,7 +22,7 @@ if (loading) return(
 if (error) return(
   <Text style={{"color": "red"}}>Error!: ${error.message}</Text>
 )
-console.log(data)
+//console.log(data)
 
   return (
     <FlatList

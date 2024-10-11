@@ -23,3 +23,13 @@ query Me {
   }
 }
 `
+
+export const GET_REPOSITORY = gql`
+${BASIC_FIELDS}
+query Node($id: ID!){
+  repository(id: $id) {
+   ...BasicFields
+    url
+  }
+}
+`

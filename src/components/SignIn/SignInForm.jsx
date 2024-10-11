@@ -1,8 +1,8 @@
-import { TextInput, Pressable, View, StyleSheet} from 'react-native';
+import { TextInput,  View, StyleSheet} from 'react-native';
 import Text from '../Text';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-
+import Button from '../Button';
 
 
 
@@ -18,15 +18,6 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
       borderColor: 'lightgray',
       borderWidth: "thin",
-    },
-    button: {
-    
-      padding: 10,
-      color: 'white',
-      backgroundColor: 'blue',
-      fontWeight: 'bold',
-      fontSize: 20,
-      textAlign: "center"
     },
     form: {
       backgroundColor: 'white',
@@ -91,9 +82,8 @@ const SignInForm = ({onSubmit}) => {
     {formik.touched.password && formik.errors.password && (
   <Text style={styles.error}>{formik.errors.password}</Text>
  )}
-    <Pressable onPress={formik.handleSubmit}>
-      <Text style={styles.button}>Sign in</Text>
-    </Pressable>
+  <Button label="Sign in" onPress={onSubmit}/>
+    
   </View>
 
   )

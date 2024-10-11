@@ -1,6 +1,8 @@
-import { View, Image ,StyleSheet} from 'react-native';
+import { View, Image ,StyleSheet, Pressable} from 'react-native';
 import Text from '../Text';
 import theme from '../../theme';
+import UrlButton from './UrlButton';
+import { useNavigate } from 'react-router-native';
 
 const styles = StyleSheet.create({
     flexColumn: {
@@ -29,19 +31,28 @@ const styles = StyleSheet.create({
     }
   });
 
-const RepositoryItem = (props) => {
+const RepositoryItem = ({item, showUrl}) => {
+const navigate = useNavigate();
+const urlComponent = showUrl ? <UrlButton url={item.url}/> : <></>
+const onPress = () => {
+  navigate(`/repos/${item.id}`)
+}
+  
 return (
     <View  testID="repositoryItem" style={styles.flexRow}>
+      <Pressable onPress={onPress}>
       <View style={styles.flexColumn}>
-        <Image style={styles.ownerAvatar} source={{uri: props.item.ownerAvatarUrl}}/>
+        <Image style={styles.ownerAvatar} source={{uri: item.ownerAvatarUrl}}/>
         <View style={styles.flexRow}>
-          <Text fontWeight="bold">{props.item.fullName}</Text>
-          <Text color="textSecondary" >{props.item.description}</Text>
+          <Text fontWeight="bold">{item.fullName}</Text>
+          <Text color="textSecondary" >{item.description}</Text>
           <View style={{padding: 3, backgroundColor: theme.colors.primary}}>
-            <Text color="textLight" style={{flexGrow: 0}}>{props.item.language}</Text>
+            <Text color="textLight" style={{flexGrow: 0}}>{item.language}</Text>
           </View>
         </View>
       </View>
+      </Pressable>
+      {urlComponent}
     </View>
 
 )
