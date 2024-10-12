@@ -22,13 +22,14 @@ const styles = StyleSheet.create({
 const AppBar = () => {
 const signOut = useSignOut();
 const signInTab = signOut ?  <AppBarTab text="Sign Out" link="/" onPressFunc={signOut}/> : <AppBarTab text="Sign In" link="/signin"/>
-
+const createReviewTab = signOut ? <AppBarTab text="Add Review" link="/review"/> : <></>
   return <View style={styles.container}>
       <ScrollView contentContainerStyle={{
             gap: 16
         }} horizontal>
     <AppBarTab text="Repositories" link="/"/>
     {signInTab}
+    {createReviewTab}
       </ScrollView>
     </View>;
 };

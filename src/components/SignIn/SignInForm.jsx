@@ -1,65 +1,22 @@
-import { TextInput,  View, StyleSheet} from 'react-native';
+import { TextInput,  View} from 'react-native';
 import Text from '../Text';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
 import Button from '../Button';
-import theme from '../../theme';
+import {formStyles as styles, placeholderTextColor}  from '../formStyles';
 
-const styles = StyleSheet.create({
-    input: {
-      backgroundColor: theme.colors.bgWhite,
-      padding: 10,
-      margin: 0,
-      gap:0
-      
-    },
-    inputBorder: {
-        borderStyle: 'solid',
-      borderColor: 'lightgray',
-      borderWidth: "thin",
-    },
-    form: {
-      backgroundColor: 'white',
-      flexDirection: 'column',
-      padding: 10,
-      margin: 10,
-      gap:20,
-      justifyContent: "center"    
-    },
-    error: {
-        color: theme.colors.error
-    }
-  });
 
-const initialValues = {
-    username: '',
-    password: '',
-  };
 
-const validationSchema = yup.object().shape({
-    username: yup
-        .string()
-        .required("username is required"),
-    password: yup
-        .string()
-        .required("password is required")
-  })
 
-const SignInForm = ({onSubmit}) => {
+
+const SignInForm = ({formik}) => {
      
-    const formik = useFormik({
-        initialValues,
-        validationSchema,
-        onSubmit,
-      });
+    
 
   return (
-
     <View style={styles.form}>
     <View style={styles.inputBorder}>
     <TextInput
       placeholder="username"
-      placeholderTextColor="lightgray"
+      placeholderTextColor={placeholderTextColor}
       value={formik.values.username}
       onChangeText={formik.handleChange('username')}
       style={styles.input}
@@ -71,7 +28,7 @@ const SignInForm = ({onSubmit}) => {
     <View style={styles.inputBorder}>
     <TextInput
       placeholder="password"
-    placeholderTextColor="lightgray"
+    placeholderTextColor={placeholderTextColor}
       value={formik.values.password}
       onChangeText={formik.handleChange('password')}
       secureTextEntry
@@ -81,7 +38,7 @@ const SignInForm = ({onSubmit}) => {
     {formik.touched.password && formik.errors.password && (
   <Text style={styles.error}>{formik.errors.password}</Text>
  )}
-  <Button label="Sign in" onPress={onSubmit}/>
+  <Button label="Sign in" onPress={formik.handleSubmit}/>
     
   </View>
 

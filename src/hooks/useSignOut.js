@@ -12,12 +12,11 @@ export const useSignOut = () => {
     if (error){
         console.log(error.message)
     }
-    console.log(data)
+    //console.log(data)
     const isSignedIn = data?.me ? true : false
 
 
     const signOut = async () => {
-        console.log("boo")
         await authStorage.removeAccessToken()
         apolloClient.resetStore();
     }
