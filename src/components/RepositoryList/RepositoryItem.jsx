@@ -8,9 +8,9 @@ const styles = StyleSheet.create({
   container: {
     margin: 5,
       gap: 5,
-        backgroundColor: 'white',
+        backgroundColor: theme.colors.bgWhite,
   },
-    flexColumn: {
+    flexRow: {
       flexDirection: 'row',
       gap:0,
       margin:5,
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
       flexShrink: 9
      
     },
-    flexRow: {
+    flexColumn: {
       margin: 2,
       
         flexDirection: 'column',
@@ -44,11 +44,11 @@ const onPress = () => {
   
 return (
   <View style={styles.container}>
-    <View testID="repositoryItem" style={styles.flexRow}>
+    <View testID="repositoryItem" style={styles.flexColumn}>
       <Pressable onPress={onPress}>
-      <View style={styles.flexColumn}>
+      <View style={styles.flexRow}>
         <Image style={styles.ownerAvatar} source={{uri: item.ownerAvatarUrl}}/>
-        <View style={styles.flexRow}>
+        <View style={styles.flexColumn}>
           <Text fontWeight="bold">{item.fullName}</Text>
           <Text color="textSecondary" >{item.description}</Text>
           <View style={{padding: 3, backgroundColor: theme.colors.primary}}>

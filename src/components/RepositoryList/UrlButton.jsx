@@ -1,12 +1,12 @@
 import Button from "../Button"
 import { View } from "react-native";
 import * as Linking from 'expo-linking';
-
+import theme from "../../theme";
 const UrlButton = ({url}) => {
     const style = {
         padding: 10,
         justifyContent: "center",    
-        backgroundColor: 'white',
+        backgroundColor: theme.colors.bgWhite,
         flexDirection: 'column',
     }
     const onPress = () => {

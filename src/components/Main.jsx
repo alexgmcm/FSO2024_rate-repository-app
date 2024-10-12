@@ -4,12 +4,13 @@ import AppBar from './AppBar';
 import { Route, Routes, Navigate } from 'react-router-native';
 import SignIn from './SignIn';
 import RepositoryView from './RepositoryView';
+import theme from '../theme';
 
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     flexShrink: 1,
-    backgroundColor: "lightgray"
+    backgroundColor: theme.colors.bgLight
   },
 });
 <Navigate to="/" replace />

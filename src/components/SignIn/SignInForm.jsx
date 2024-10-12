@@ -3,12 +3,11 @@ import Text from '../Text';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Button from '../Button';
-
-
+import theme from '../../theme';
 
 const styles = StyleSheet.create({
     input: {
-      backgroundColor: "white",
+      backgroundColor: theme.colors.bgWhite,
       padding: 10,
       margin: 0,
       gap:0
@@ -28,7 +27,7 @@ const styles = StyleSheet.create({
       justifyContent: "center"    
     },
     error: {
-        color: "#d73a4a"
+        color: theme.colors.error
     }
   });
 

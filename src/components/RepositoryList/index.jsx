@@ -3,7 +3,7 @@ import RepositoryItem from './RepositoryItem';
 import { useQuery } from '@apollo/client';
 import { GET_REPOSITORIES } from '../../graphql/queries';
 import Text from '../Text';
-
+import theme from '../../theme';
 
 const styles = StyleSheet.create({
   separator: {
@@ -20,7 +20,7 @@ if (loading) return(
 <Text>Loading...</Text>
 )
 if (error) return(
-  <Text style={{"color": "red"}}>Error!: ${error.message}</Text>
+  <Text style={{"color": theme.colors.error}}>Error!: ${error.message}</Text>
 )
 //console.log(data)
 
