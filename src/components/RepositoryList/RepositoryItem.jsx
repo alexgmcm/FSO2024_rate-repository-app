@@ -5,6 +5,11 @@ import UrlButton from './UrlButton';
 import { useNavigate } from 'react-router-native';
 
 const styles = StyleSheet.create({
+  container: {
+    margin: 5,
+      gap: 5,
+        backgroundColor: 'white',
+  },
     flexColumn: {
       flexDirection: 'row',
       gap:0,
@@ -14,9 +19,8 @@ const styles = StyleSheet.create({
      
     },
     flexRow: {
-      margin: 5,
-      gap: 5,
-        backgroundColor: 'white',
+      margin: 2,
+      
         flexDirection: 'column',
         alignItems: "flex-start",
         flexWrap: 'nowrap',
@@ -39,7 +43,8 @@ const onPress = () => {
 }
   
 return (
-    <View  testID="repositoryItem" style={styles.flexRow}>
+  <View style={styles.container}>
+    <View testID="repositoryItem" style={styles.flexRow}>
       <Pressable onPress={onPress}>
       <View style={styles.flexColumn}>
         <Image style={styles.ownerAvatar} source={{uri: item.ownerAvatarUrl}}/>
@@ -52,7 +57,9 @@ return (
         </View>
       </View>
       </Pressable>
-      {urlComponent}
+      
+    </View>
+    {urlComponent}
     </View>
 
 )

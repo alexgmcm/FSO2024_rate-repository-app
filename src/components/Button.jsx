@@ -2,7 +2,7 @@ import { StyleSheet, Pressable } from "react-native"
 import Text from "./Text"
 const Button = ({label, onPress}) => {
     const styles = StyleSheet.create({ button: {
-        padding: 10,
+       padding: 10,
         color: 'white',
         backgroundColor: 'blue',
         fontWeight: 'bold',
