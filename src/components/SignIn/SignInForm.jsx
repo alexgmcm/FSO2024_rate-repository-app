@@ -1,8 +1,7 @@
-import { TextInput,  View} from 'react-native';
-import Text from '../Text';
+import {  View} from 'react-native';
 import Button from '../Button';
-import {formStyles as styles, placeholderTextColor}  from '../formStyles';
-
+import {formStyles as styles}  from '../formStyles';
+import FormTextInput from '../FormTextInput';
 
 
 
@@ -13,31 +12,10 @@ const SignInForm = ({formik}) => {
 
   return (
     <View style={styles.form}>
-    <View style={styles.inputBorder}>
-    <TextInput
-      placeholder="username"
-      placeholderTextColor={placeholderTextColor}
-      value={formik.values.username}
-      onChangeText={formik.handleChange('username')}
-      style={styles.input}
-    />
-    </View>
-    {formik.touched.username && formik.errors.username && (
-  <Text style={styles.error}>{formik.errors.username}</Text>
- )}
-    <View style={styles.inputBorder}>
-    <TextInput
-      placeholder="password"
-    placeholderTextColor={placeholderTextColor}
-      value={formik.values.password}
-      onChangeText={formik.handleChange('password')}
-      secureTextEntry
-      style={styles.input}
-    />
-    </View>
-    {formik.touched.password && formik.errors.password && (
-  <Text style={styles.error}>{formik.errors.password}</Text>
- )}
+
+      <FormTextInput formik={formik} name="username"/>
+      <FormTextInput formik={formik} name="password" secureTextEntry={true}/>
+    
   <Button label="Sign in" onPress={formik.handleSubmit}/>
     
   </View>

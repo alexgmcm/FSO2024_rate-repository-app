@@ -1,12 +1,11 @@
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import {formStyles as styles, placeholderTextColor}  from '../formStyles';
 import { useNavigate } from 'react-router-native';
 import { useCreateReview } from '../../hooks/useCreateReview';
-import { TextInput,  View} from 'react-native';
-import Text from '../Text';
+import { formStyles as styles } from '../formStyles';
+import {  View} from 'react-native';
 import Button from '../Button';
-
+import FormTextInput from '../FormTextInput';
 const initialValues = {
     username: '',
     name: '',
@@ -31,24 +30,7 @@ const validationSchema = yup.object().shape({
     review: yup.string()
   })
 
-  const FormInput = ({name, formik}) => {
-
-    return( <View>
-      <View style={styles.inputBorder}>
-        <TextInput
-          placeholder={name}
-        placeholderTextColor={placeholderTextColor}
-          value={formik.values[name]}
-          onChangeText={formik.handleChange(name)}
-          style={styles.input}
-        />
-      </View>
-      {formik.touched[name] && formik.errors[name] && (
-    <Text style={styles.error}>{formik.errors[name]}</Text>
-      )}
-    </View>
-   )
-  }
+ 
 
 const ReviewForm = () => {
   const [createReview] = useCreateReview();
@@ -76,10 +58,10 @@ const ReviewForm = () => {
      
 
     return (<View style={styles.form}>
-       <FormInput name="ownerName" formik={formik}/>
-       <FormInput name="repositoryName" formik={formik}/>
-       <FormInput name="rating" formik={formik}/>
-       <FormInput name="review" formik={formik}/>
+       <FormTextInput name="ownerName" formik={formik}/>
+       <FormTextInput name="repositoryName" formik={formik}/>
+       <FormTextInput name="rating" formik={formik}/>
+       <FormTextInput name="review" formik={formik}/>
       <Button label="Create" onPress={formik.handleSubmit}/>
         
       </View>)
