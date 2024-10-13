@@ -1,7 +1,8 @@
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import {formStyles as styles, placeholderTextColor}  from '../formStyles';
-
+import { useNavigate } from 'react-router-native';
+import { useCreateReview } from '../../hooks/useCreateReview';
 import { TextInput,  View} from 'react-native';
 import Text from '../Text';
 import Button from '../Button';
@@ -16,10 +17,10 @@ const initialValues = {
 
 
 const validationSchema = yup.object().shape({
-    username: yup
+    ownerName: yup
         .string()
-        .required("username is required"),
-    name: yup
+        .required("repo owner name is required"),
+    repositoryName: yup
         .string()
         .required("repo name is required"),
     rating: yup
@@ -30,11 +31,40 @@ const validationSchema = yup.object().shape({
     review: yup.string()
   })
 
+  const FormInput = ({name, formik}) => {
+
+    return( <View>
+      <View style={styles.inputBorder}>
+        <TextInput
+          placeholder={name}
+        placeholderTextColor={placeholderTextColor}
+          value={formik.values[name]}
+          onChangeText={formik.handleChange(name)}
+          style={styles.input}
+        />
+      </View>
+      {formik.touched[name] && formik.errors[name] && (
+    <Text style={styles.error}>{formik.errors[name]}</Text>
+      )}
+    </View>
+   )
+  }
 
 const ReviewForm = () => {
+  const [createReview] = useCreateReview();
+  const navigate = useNavigate();
 
-    const onSubmit = (values) => {
-      console.log(values)
+    const onSubmit = async (values) => {
+      const review = {ownerName: values.ownerName, repositoryName: values.repositoryName, rating: parseInt(values.rating), text: values.review}
+      //console.log(review)
+      try {
+      const repoId = await createReview(review)
+      console.log(repoId)
+      navigate(`/repos/${repoId}`)
+      } catch(err) {
+        console.log(err.message)
+        navigate('/')
+      }
     }
 
     const formik = useFormik({
@@ -43,33 +73,13 @@ const ReviewForm = () => {
         onSubmit,
       });
 
-      const FormInput = ({name}) => {
-
-        return( <View>
-          <View style={styles.inputBorder}>
-            <TextInput
-              placeholder={name}
-            placeholderTextColor={placeholderTextColor}
-              value={formik.values[name]}
-              onChangeText={formik.handleChange(name)}
-              style={styles.input}
-            />
-          </View>
-          {formik.touched[name] && formik.errors[name] && (
-        <Text style={styles.error}>{formik.errors[name]}</Text>
-          )}
-        </View>
-       )
-      }
+     
 
     return (<View style={styles.form}>
-      
-      <FormInput name="username"/>
-       <FormInput name="name"/>
-       <FormInput name="rating"/>
-       <FormInput name="review"/>
-
-
+       <FormInput name="ownerName" formik={formik}/>
+       <FormInput name="repositoryName" formik={formik}/>
+       <FormInput name="rating" formik={formik}/>
+       <FormInput name="review" formik={formik}/>
       <Button label="Create" onPress={formik.handleSubmit}/>
         
       </View>)
