@@ -23,6 +23,7 @@ const AppBar = () => {
 const signOut = useSignOut();
 const signInTab = signOut ?  <AppBarTab text="Sign Out" link="/" onPressFunc={signOut}/> : <AppBarTab text="Sign In" link="/signin"/>
 const createReviewTab = signOut ? <AppBarTab text="Add Review" link="/review"/> : <></>
+const signUpTab = signOut ? <></> : <AppBarTab text="Sign Up" link="/signup" />
   return <View style={styles.container}>
       <ScrollView contentContainerStyle={{
             gap: 16
@@ -30,6 +31,7 @@ const createReviewTab = signOut ? <AppBarTab text="Add Review" link="/review"/> 
     <AppBarTab text="Repositories" link="/"/>
     {signInTab}
     {createReviewTab}
+    {signUpTab}
       </ScrollView>
     </View>;
 };

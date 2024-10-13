@@ -13,8 +13,6 @@ const initialValues = {
     review: ''
   };
 
-
-
 const validationSchema = yup.object().shape({
     ownerName: yup
         .string()
@@ -30,7 +28,6 @@ const validationSchema = yup.object().shape({
     review: yup.string()
   })
 
- 
 
 const ReviewForm = () => {
   const [createReview] = useCreateReview();
