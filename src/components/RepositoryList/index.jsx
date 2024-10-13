@@ -1,9 +1,9 @@
 import { FlatList, View, StyleSheet } from 'react-native';
 import RepositoryItem from './RepositoryItem';
-import { useQuery } from '@apollo/client';
-import { GET_REPOSITORIES } from '../../graphql/queries';
+import {Picker} from '@react-native-picker/picker';
+import { useState } from 'react';
+import useRepositories from '../../hooks/useRepositories';
 import Text from '../Text';
-import theme from '../../theme';
 
 const styles = StyleSheet.create({
   separator: {
@@ -15,16 +15,30 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const RepositoryList = () => {
-  const { data, error, loading } = useQuery(GET_REPOSITORIES, { fetchPolicy: 'cache-and-network',});
-if (loading) return(
-<Text>Loading...</Text>
-)
-if (error) return(
-  <Text style={{"color": theme.colors.error}}>Error!: ${error.message}</Text>
-)
-//console.log(data)
+const [sortSetting, setSortSetting] = useState("latest");
+const getRepositories = useRepositories()
+const {data, loading, error} = getRepositories(sortSetting)
 
-  return (
+if(loading){
+  return(<Text>loading...</Text>)
+}
+if(error){
+  return(<Text>{error.message}</Text>)
+}
+
+
+
+
+  return (<View><Picker
+    selectedValue={sortSetting}
+    onValueChange={(itemValue) =>
+      setSortSetting(itemValue)
+    }
+    mode="dialog">
+    <Picker.Item label="Latest" value="latest" />
+    <Picker.Item label="Highest Rated" value="highestRated" />
+    <Picker.Item label="Lowest Rated" value="lowestRated" />
+  </Picker>
     <FlatList
       data={data.repositories.edges}
       ItemSeparatorComponent={ItemSeparator}
@@ -32,6 +46,7 @@ if (error) return(
         <RepositoryItem item={item.node}/>
       )}
     />
+     </View>
   );
 };
 

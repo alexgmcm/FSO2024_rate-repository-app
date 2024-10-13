@@ -4,15 +4,15 @@ import { BASIC_FIELDS } from './fragments';
 
 export const GET_REPOSITORIES = gql`
 ${BASIC_FIELDS}
-query Node {
-    repositories {
-      edges {
-        node {
+query Query($orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection) {
+  repositories(orderBy: $orderBy, orderDirection: $orderDirection) {
+    edges {
+      node {
         ...BasicFields
-        }
       }
     }
   }
+}
 `;
 
 export const GET_ME = gql`
