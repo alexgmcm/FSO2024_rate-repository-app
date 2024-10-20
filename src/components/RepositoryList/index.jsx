@@ -1,23 +1,30 @@
-import { FlatList, View, StyleSheet } from 'react-native';
-import RepositoryItem from './RepositoryItem';
+import {View } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import { useState } from 'react';
 import useRepositories from '../../hooks/useRepositories';
 import Text from '../Text';
-
-const styles = StyleSheet.create({
-  separator: {
-    height: 10,
-  },
-});
+import { Searchbar } from 'react-native-paper';
+import { useDebounce } from "use-debounce";
+import List from './List';
 
 
-const ItemSeparator = () => <View style={styles.separator} />;
+const Search = ({searchQuery, setSearchQuery}) => {
+
+  return (<Searchbar
+    placeholder="Search"
+    onChangeText={setSearchQuery}
+    value={searchQuery}
+  />)
+}
+
 
 const RepositoryList = () => {
+const [searchQuery, setSearchQuery] = useState('');
+const [debouncedQuery] = useDebounce(searchQuery, 500);
+
 const [sortSetting, setSortSetting] = useState("latest");
 const getRepositories = useRepositories()
-const {data, loading, error} = getRepositories(sortSetting)
+const {data, loading, error} = getRepositories(sortSetting, debouncedQuery)
 
 if(loading){
   return(<Text>loading...</Text>)
@@ -25,9 +32,6 @@ if(loading){
 if(error){
   return(<Text>{error.message}</Text>)
 }
-
-
-
 
   return (<View><Picker
     selectedValue={sortSetting}
@@ -39,13 +43,8 @@ if(error){
     <Picker.Item label="Highest Rated" value="highestRated" />
     <Picker.Item label="Lowest Rated" value="lowestRated" />
   </Picker>
-    <FlatList
-      data={data.repositories.edges}
-      ItemSeparatorComponent={ItemSeparator}
-      renderItem = {({item}) => (
-        <RepositoryItem item={item.node}/>
-      )}
-    />
+  <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+    <List data={data}/>
      </View>
   );
 };
