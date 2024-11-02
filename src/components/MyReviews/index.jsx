@@ -1,6 +1,6 @@
 import { useUserReviews } from "../../hooks/useUserReviews"
 import { FlatList } from "react-native"
-import ReviewItem from "../ReviewItem"
+import ReviewItem from "./ReviewItem"
 import Text from "../Text"
 import theme from "../../theme";
 

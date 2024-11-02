@@ -27,9 +27,6 @@ query Me($includeReviews: Boolean = false) {
             repository {
             fullName
             }
-            user {
-              username
-            }
             rating
             text
             createdAt

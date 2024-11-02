@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/client";
 import Text from "../Text";
 import { useParams } from "react-router-native";
 import { FlatList } from "react-native";
-import ReviewItem from "../ReviewItem";
+import ReviewItem from "./ReviewItem";
 import theme from "../../theme";
 const RepositoryView = () => {
     const {id} = useParams();

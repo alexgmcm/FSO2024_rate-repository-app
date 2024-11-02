@@ -1,8 +1,12 @@
 import { View } from "react-native";
-import Text from "./Text";
-import { StyleSheet } from "react-native";
-import theme from "../theme";
+import Text from "../Text";
+import { StyleSheet, Alert, Platform  } from "react-native";
+import theme from "../../theme";
 import  { format } from "date-fns";
+import Button from "../Button";
+import { useNavigate } from "react-router-native";
+import { useDelReview } from "../../hooks/useDelReview";
+
 const styles = StyleSheet.create({
     container: {
       margin: 0,
@@ -42,9 +46,24 @@ const styles = StyleSheet.create({
     });
 
 const ReviewItem = ({review}) => {
-console.log(review)
+const navigate = useNavigate();
+const [deleteReview]  = useDelReview();
+
 const dateFormat = "dd.MM.yy"
 const formattedDate = format(review.createdAt, dateFormat )
+
+const createTwoButtonAlert = () => {
+    if (Platform.OS === "web") {
+      const confirmed = window.confirm("Do you wish to delete the review?");
+      if (confirmed) deleteReview(review.id);
+    } else {
+      Alert.alert('Delete review?', 'Do you wish to delete the review?', [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Yes', onPress: () => deleteReview(review.id) },
+      ]);
+    }
+  };
+
 
     return(
       <View style={styles.container}>
@@ -53,12 +72,16 @@ const formattedDate = format(review.createdAt, dateFormat )
             <Text color="primary" fontWeight="bold" style={styles.ratingText}>{review.rating}</Text>
         </View>
         <View style={styles.flexColumn}>
-        <Text fontWeight="bold">{review.user.username}</Text>
+        <Text fontWeight="bold">{review.repository.fullName}</Text>
         <Text color="textSecondary">{formattedDate}</Text>
         <Text>{review.text}</Text>
         </View>
-        
         </View>
+        <View style={styles.flexRow}>
+        <Button label="View repository" onPress={() => {navigate(`/repos/${review.repositoryId}`)}}/>
+        <Button label="Delete review" onPress={createTwoButtonAlert} colour="red"/>
+        </View>
+
       </View>
     )
   
