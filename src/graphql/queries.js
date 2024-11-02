@@ -4,12 +4,18 @@ import { BASIC_FIELDS } from './fragments';
 
 export const GET_REPOSITORIES = gql`
 ${BASIC_FIELDS}
-query Query($orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection, $searchKeyword: String ) {
-  repositories(orderBy: $orderBy, orderDirection: $orderDirection, searchKeyword: $searchKeyword) {
+query Query($orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection, $searchKeyword: String, $after: String, $first: Int) {
+  repositories(orderBy: $orderBy, orderDirection: $orderDirection, searchKeyword: $searchKeyword,  after: $after, first: $first) {
     edges {
       node {
         ...BasicFields
       }
+    }
+      pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
     }
   }
 }
@@ -41,11 +47,11 @@ query Me($includeReviews: Boolean = false) {
 
 export const GET_REPOSITORY = gql`
 ${BASIC_FIELDS}
-query Node($id: ID!){
+query Node($id: ID!, $first: Int, $after: String){
   repository(id: $id) {
    ...BasicFields
     url
-    reviews {
+    reviews(first: $first, after: $after) {
       edges {
         node {
           id
@@ -58,7 +64,13 @@ query Node($id: ID!){
           }
         }
       }
-    }
+     pageInfo {
+        hasPreviousPage
+        hasNextPage
+        startCursor
+        endCursor
+      }
+      }
   }
 }
 `

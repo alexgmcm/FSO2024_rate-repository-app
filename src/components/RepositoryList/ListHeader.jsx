@@ -6,6 +6,7 @@ import React from 'react'
 
 const ListHeader = ({searchQuery, setSearchQuery , sortSetting, setSortSetting}) => {  
       return (<View><Picker
+        style={{height: 44}} itemStyle={{height: 44}}
         selectedValue={sortSetting}
         onValueChange={(itemValue) =>
           setSortSetting(itemValue)
@@ -16,6 +17,7 @@ const ListHeader = ({searchQuery, setSearchQuery , sortSetting, setSortSetting})
         <Picker.Item label="Lowest Rated" value="lowestRated" />
       </Picker>
       <Searchbar
+      style={{height: 44}}
       placeholder="Search"
       onChangeText={setSearchQuery}
       value={searchQuery}

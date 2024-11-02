@@ -1,6 +1,5 @@
 import RepositoryItem from "../RepositoryList/RepositoryItem";
-import { GET_REPOSITORY } from "../../graphql/queries";
-import { useQuery } from "@apollo/client";
+import { useGetRepository } from "../../hooks/useGetRepository";
 import Text from "../Text";
 import { useParams } from "react-router-native";
 import { FlatList } from "react-native";
@@ -8,7 +7,7 @@ import ReviewItem from "./ReviewItem";
 import theme from "../../theme";
 const RepositoryView = () => {
     const {id} = useParams();
-    const { data, error, loading } = useQuery(GET_REPOSITORY, { variables: {id: id}, fetchPolicy: 'cache-and-network',});
+    const {data, loading, error, fetchMore} = useGetRepository(id)
     if (loading) return(
     <Text>Loading...</Text>
     )
@@ -18,14 +17,20 @@ const RepositoryView = () => {
 
    const header = <RepositoryItem item={data.repository} showUrl={true}/>
    const reviews = data.repository.reviews.edges.map((x) => x.node ) 
-    console.log(reviews)
+  
     return (<FlatList
       data={reviews}
       renderItem={({ item }) => <ReviewItem review={item} />}
       keyExtractor={({ id }) => id}
       ListHeaderComponent={() =>  header }
+      onEndReached={() => {console.log("end of list reached");fetchMore()}}
+      onEndReachedThreshold={0.1}
+      showsVerticalScrollIndicator = {true}
+      scrollEnabled={true}
+      
       // ...
-    />)
+    />
+    )
 }
 
 export default RepositoryView
