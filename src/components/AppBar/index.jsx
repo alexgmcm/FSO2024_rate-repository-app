@@ -23,6 +23,7 @@ const AppBar = () => {
 const signOut = useSignOut();
 const signInTab = signOut ?  <AppBarTab text="Sign Out" link="/" onPressFunc={signOut}/> : <AppBarTab text="Sign In" link="/signin"/>
 const createReviewTab = signOut ? <AppBarTab text="Add Review" link="/review"/> : <></>
+const MyReviewsTab = signOut ? <AppBarTab text="My Reviews" link="/myreviews"/> : <></>
 const signUpTab = signOut ? <></> : <AppBarTab text="Sign Up" link="/signup" />
   return <View style={styles.container}>
       <ScrollView contentContainerStyle={{
@@ -32,6 +33,7 @@ const signUpTab = signOut ? <></> : <AppBarTab text="Sign Up" link="/signup" />
     {signInTab}
     {createReviewTab}
     {signUpTab}
+    {MyReviewsTab}
       </ScrollView>
     </View>;
 };

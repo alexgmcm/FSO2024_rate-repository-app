@@ -7,7 +7,7 @@ import RepositoryView from './RepositoryView';
 import theme from '../theme';
 import ReviewForm from './ReviewForm';
 import SignUpForm from './SignUpForm';
-
+import MyReviews from './MyReviews';
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
@@ -26,6 +26,9 @@ const Main = () => {
        <Route path="/repos/:id" element={<RepositoryView />}/>
        <Route path="/review" element={<ReviewForm />}/>
        <Route path="/signup" element={<SignUpForm/>}/>
+       <Route path="/myreviews" element={<MyReviews/>}/>
+
+      
     </Routes>
    
     </View>

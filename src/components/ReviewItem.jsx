@@ -1,7 +1,7 @@
 import { View } from "react-native";
-import Text from "../Text";
+import Text from "./Text";
 import { StyleSheet } from "react-native";
-import theme from "../../theme";
+import theme from "../theme";
 import  { format } from "date-fns";
 const styles = StyleSheet.create({
     container: {
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     });
 
 const ReviewItem = ({review}) => {
-
+console.log(review)
 const dateFormat = "dd.MM.yy"
 const formattedDate = format(review.createdAt, dateFormat )
 
